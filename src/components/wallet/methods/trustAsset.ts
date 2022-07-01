@@ -59,13 +59,12 @@ export default async function trustAsset(
       .addOperation(Operation.changeTrust({
         asset: new Asset(instructions[0], instructions[1])
       }))
-      .setTimeout(0)
+      .setTimeout(10)
       .build()
-
       transaction.sign(keypair)
       return this.server.submitTransaction(transaction)
     })
-    .then((res) => console.log(res))
+    .then((res) => console.log('res - ', res))
     .finally(() => {
       this.loading = {...this.loading, trust: false}
       this.updateAccount()

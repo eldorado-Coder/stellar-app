@@ -8,7 +8,7 @@ export default async function componentWillLoad() {
 
     this.error = null
     this.server = new Server('https://horizon-testnet.stellar.org')
-    this.homeDomain = 'stellar-anchor-server.herokuapp.com'
+    this.homeDomain = 'assets.realtybits.com'
     this.toml = await StellarTomlResolver.resolve(this.homeDomain)
 
     if (keystore) {

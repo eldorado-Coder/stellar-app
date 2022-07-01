@@ -11,7 +11,6 @@ import {
 } from 'lodash-es'
 
 import { handleError } from '@services/error'
-
 export default async function depositAsset(e: Event) {
   try {
     e.preventDefault()
@@ -31,7 +30,7 @@ export default async function depositAsset(e: Event) {
     })
 
     if (hasCurrency === -1)
-      await this.trustAsset(null, currency[0], currency[1], pincode)
+        await this.trustAsset(null, currency[0], currency[1], pincode)
 
     const info = await axios.get(`${this.toml.TRANSFER_SERVER}/info`)
     .then(({data}) => data)
@@ -44,6 +43,7 @@ export default async function depositAsset(e: Event) {
       }
     })
     .then(async ({data}) => {
+
       const transaction: any = new Transaction(data.transaction, data.network_passphrase)
 
       this.error = null
@@ -59,7 +59,8 @@ export default async function depositAsset(e: Event) {
     .then((transaction) => axios.post(`${this.toml.WEB_AUTH_ENDPOINT}`, {transaction}, {headers: {'Content-Type': 'application/json'}}))
     .then(({data: {token}}) => token) // TODO: Store the JWT in localStorage
 
-    console.log(auth)
+    console.log('auth ---- ', auth)
+
 
     const formData = new FormData()
 
@@ -76,7 +77,7 @@ export default async function depositAsset(e: Event) {
       }
     }).then(({data}) => data)
 
-    console.log(interactive)
+    console.log(' interactive - ', interactive)
 
     const transactions = await axios.get(`${this.toml.TRANSFER_SERVER}/transactions`, {
       params: {
@@ -90,7 +91,7 @@ export default async function depositAsset(e: Event) {
     })
     .then(({data: {transactions}}) => transactions)
 
-    console.log(transactions)
+    console.log('transactions - ', transactions)
 
     const urlBuilder = new URL(interactive.url)
           urlBuilder.searchParams.set('callback', 'postMessage')
