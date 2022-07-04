@@ -8,7 +8,6 @@ export default async function copySecret(e: Event) {
     e.preventDefault()
 
     const pincode = await this.setPrompt('Enter your keystore pincode')
-
     if (!pincode)
       return
 
